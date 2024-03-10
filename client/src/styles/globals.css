@@ -1,0 +1,12 @@
+/* styles/globals.css */
+body {
+    background: linear-gradient(to right, #2b2b2b, #4e4e4e);
+    color: white; /* Set a light text color so it's readable on the dark background */
+  }
+
+
+h2 {
+    color: red;
+    font-size: 2em;
+}
+  

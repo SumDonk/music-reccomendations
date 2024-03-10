@@ -1,0 +1,57 @@
+Plans and ideas(*):
+BACKEND:
+- Have two seperate ways to access the site, one with no authorization and and one with a login to gain more personalized recommendation of music 
+- Implement all artist and track methods
+- Implement the search bar
+- Differentiate whether a loggedin page appears or a non loggedin page appears (most likely need two different routes for "/loggedin/tracks" and just "/tracks")
+
+FRONTEND:
+Proposed layout:
+
+LANDING PAGE- A simple page that will offer a few things
+	LANDING PAGE CONTENT - The initial landing page should show off the title of the website in a big font. Going for "music recs" for now
+		- Maybe some subtext saying something along the lines of 
+		  "Search right here for a specific artist or track OR login above to get your artists and tracks from your spotify profile"
+		-
+	SEARCH - A searchbar somewhere which will allow a user to search up a specific artists or tracks
+	LOGIN - A login button on the main page that will prompt the spotify authorization and redirect to a loggedin page which will show some sort of personalization
+		- AFTER LOGIN: Maybe be greeted with Hello {username}! and something like "your top artists and tracks of the month" 
+		-FAILED LOGIN: Display text saying the login has failed, wait a few seconds, and then redirect to the main page
+
+
+TWO SEPERATE PAGES( maybe more*)
+/tracks and /artists for now, Since the front end is in React, no need to reload the page, so there will most likely be a navigation bar on either the side or the top of the landing page
+
+These pages will vary on whether or not the user is logged in or not so I will most likely have different information dispalyed on both
+	/tracks - /tracks page itself is most likely going to show something like Top 10 tracks in {your_country} 
+			- any clicks on a specific track on the tracks page will direct to tracks/<track_id> (see INDIVUDIUAL ARTIST AND TRACKS)
+
+
+	/artists- /artists page itself is most likely going to show something like Top 10 artists in {your_country}
+			-any clicks on a specific track on the tracks page will direct to artists/<artist_id> (see INDIVUDIUAL ARTIST AND TRACKS)
+
+	/loggedin/tracks - present a song and a preview and asks if the user likes it (maybe with a thumbs up/down icon*)
+			- display the song title, artist name, album cover,  
+			- Add an add to playlist button
+			- First song will use spotify's recommendation algorithm using the current user's top 5 songs and top 5 artists as seeds
+			- After the user rates, highlight the selection (green on the thumbs up, red for thumbs down)we can continue to iterate through all of the recommendations 
+			  (next and previous buttons should exist) that came with the first recommendation, after that, when the user reaches the end, they can press a refresh button 
+			  where we can use what songs were rated positively as the new seeds. Additionally, we can throw user's recently listened to, into the mix (optional)
+
+	/loggedin/artists - same idea as loggedin/tracks but with artists
+				- In order to keep the artists fresh on refresh, we can use a mix of what artists the user is following, or what artists the user has recently listened to
+
+INDIVUDIUAL ARTIST AND TRACKS
+On click of an artist or track it will bring up a page for that specific artist or track that will be able to display much information, such as
+	tracks/<track_id>:
+	- Specifc Track info 
+	- Related tracks
+	- *SOLID IDEA* Pull any extra information I can using genuis.com, whether through webscraping or if they have an API
+
+	artists/<artist_id>:
+	- Retreive artist albums
+	- Top artist tracks
+	- Retrieve artists social media and other links if possible
+
+FOOTER:
+Contact me, and other nonsense
