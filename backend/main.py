@@ -20,6 +20,7 @@ def artist_link_to_uri(url):
 
 if __name__ == "__main__":
     spotify = SPOTIFY_CLIENT.get_client()
+    print(pformat(spotify.artist_top_tracks(uri)))
     # print(pformat(spotify.categories()))
     # print(pformat(spotify.audio_features(track_uri)))
 

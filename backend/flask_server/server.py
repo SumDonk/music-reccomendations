@@ -60,7 +60,7 @@ def artist():
 @app.route("/artists/<artist>/toptracks")
 def artist_top_tracks(artist):
     tracks = top_tracks_for_artist("https://open.spotify.com/artist/760kxYHN5QTrD1DehiimjB?si=ZyaF_19dQxK8-HN3jrX3uA",10)
-    return jsonify(tracks)
+    return tracks
 
 @app.route("/tracks/")
 def track_info():

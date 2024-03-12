@@ -1,0 +1,13 @@
+.hero{
+    font-size: xx-large;
+    display: flex;
+    padding: 2em;
+}
+
+.H1Landing{
+    font-size: x-large;
+    color:aqua;
+    text-align: 'center';
+    margin-bottom: '5%';
+    display: fle;
+}
