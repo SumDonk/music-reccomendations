@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '@/components/Navbar.jsx';
+import Navbar from '@/components/Navbar';
 import styles from '../styles/Landing.module.css'
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Button } from 'react-bootstrap';
-import {
-  MDBBtn,
-  MDBInputGroup
-} from 'mdb-react-ui-kit';
+import { MDBBtn, MDBInputGroup } from 'mdb-react-ui-kit';
 
 
 function index() {
@@ -22,7 +16,7 @@ function index() {
   return (
     <div>
       <Navbar></Navbar>
-      <h1 className={`${styles.H1landing}`}>Welcome to Music Rex</h1>
+      <h1 className={`${styles.hero}`}>Welcome to Music Rex</h1>
       <section className={`${styles.hero}`}>
         <p>Welcome to Music Recs, your personal gateway to a world of music tailored just for you.
           Dive into a seamless musical journey, where every note resonates with your tastes and preferences.

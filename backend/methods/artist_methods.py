@@ -1,3 +1,4 @@
+from pprint import pformat
 from methods.login import SpotifyClient
 from flask import jsonify
 SPOTIFY_CLIENT = SpotifyClient()
@@ -32,8 +33,8 @@ def get_related_artists(uri,num_artists):
             'spotify_link': artist['external_urls']['spotify']
         }
         related_artists.append(artist_info)
-        json_artists = jsonify(related_artists)
-    return json_artists
+        # json_artists = jsonify(related_artists)
+    return pformat(related_artists)
 
 def get_artist_albums(uri,num_albums):
     

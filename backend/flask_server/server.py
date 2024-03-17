@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
 from methods.artist_methods import *
 from methods.track_methods import *
+from search import search_artists
 
 
 
@@ -61,6 +62,12 @@ def artist():
 def artist_top_tracks(artist):
     tracks = top_tracks_for_artist("https://open.spotify.com/artist/760kxYHN5QTrD1DehiimjB?si=ZyaF_19dQxK8-HN3jrX3uA",10)
     return tracks
+
+@app.route("/search/<query>")
+def artists(query):
+    artists = search_artists(query, "artist", 5)
+    return artists
+
 
 @app.route("/tracks/")
 def track_info():

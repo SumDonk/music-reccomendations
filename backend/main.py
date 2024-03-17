@@ -1,5 +1,5 @@
 from flask_server.server import app, jsonify
-from methods.artist_methods import SPOTIFY_CLIENT
+from methods.artist_methods import *
 from methods.track_methods import *
 from pprint import pprint, pformat
 
@@ -16,22 +16,62 @@ def artist_link_to_uri(url):
     uri = spotify._get_uri(type="artist",id=url)
     return uri
 
+def search_artists(query:str, type:str, num_artist = 10):
+    spotify = SPOTIFY_CLIENT.get_client()
+    results = spotify.search(query,limit=num_artist,offset=0,type= type)
+    artists = []
+    for artist in results['artists']['items']:
+        artist_info = {
+            'artist': artist['name'],
+            'genres': artist['genres'],
+            'artist_img': artist['images'][0]['url'],
+            'spotify_link': artist['external_urls']['spotify']
+        }
+        artists.append(artist_info)
+        pformat(print(artist_info))
+        json_artists = jsonify(artists)
+    return artist_info
+
+def search_tracks(query:str, type:str, num_artist = 10):
+    spotify = SPOTIFY_CLIENT.get_client()
+    results = spotify.search(query,limit=num_artist,offset=0,type= "tracks")
+    artists = []
+    for artist in results['artists']['items']:
+        artist_info = {
+            'artist': artist['name'],
+            'genres': artist['genres'],
+            'artist_img': artist['images'][0]['url'],
+            'spotify_link': artist['external_urls']['spotify']
+        }
+        artists.append(artist_info)
+        pformat(print(artist_info))
+        # json_artists = jsonify(artists)
+    return artist_info
+
     
 
 if __name__ == "__main__":
     spotify = SPOTIFY_CLIENT.get_client()
-    print(pformat(spotify.artist_top_tracks(uri)))
-    # print(pformat(spotify.categories()))
-    # print(pformat(spotify.audio_features(track_uri)))
+    #print(search_artists("Nothing more", "artist", 10))
+    #print(spotify.search('Nothing More',5))
+    #print(pformat(spotify.search('Nothing More',5)))
+    #hello = pformat(spotify.search('Nothing More',5,0,'track'))
+    #hello = pformat(spotify.search('Nothing More',5,0,"track"))
+    #hello2 = pformat(spotify.search('Nothing More',5,0,"artist"))
+    hello3 =  get_related_artists(uri,10)
+    hello4 = pformat(spotify.artist_related_artists(uri))
 
-    # print(get_audio_info(track_uri))
-
-    # hello = pformat(get_related_artists(uri, 2))
-    # print(hello)
     
 
-    # with open("Output.txt", "w", encoding="utf-8") as text_file:
-       # text_file.write(hello)
+    #with open("Output.txt", "w", encoding="utf-8") as text_file:
+        #text_file.write(str(hello))
+
+    #with open("Output2.txt", "w", encoding="utf-8") as text_file:
+        #text_file.write(str(hello2))
+    
+    # with open("Output4.txt", "w", encoding="utf-8") as text_file:
+        # text_file.write(str(hello4))
+
 
     
     app.run(debug=True, port=8080)

@@ -25,42 +25,45 @@ function Navbar() {
     // setUser({ name: 'John Doe', profilePicture: '/path/to/profile/picture' });
   }, []);
 
-    return (
-      <MDBNavbar expand='lg' dark bgColor='dark'>
-        <MDBContainer fluid>
-          <MDBNavbarBrand href='#'><img 
+  return (
+    <MDBNavbar expand='lg' dark bgColor='dark' style={{maxHeight:'70px'}}>
+      <MDBContainer fluid>
+        <MDBNavbarBrand href='#'><img
           src="https://th.bing.com/th/id/OIP.egF5T1Dcu38u6rwlgVojqAHaHa?rs=1&pid=ImgDetMain"
-          alt="About Us" 
+          alt="About Us"
           height='50'
-           />
+        />
 
-           </MDBNavbarBrand>
-          <MDBNavbarToggler
-            aria-expanded='false'
-            aria-label='Toggle navigation'
-            onClick={() => setOpenNavSecond(!openNavSecond)}
-          >
-            <MDBIcon icon='bars' fas />
-          </MDBNavbarToggler>
-          <MDBCollapse navbar open={openNavSecond}>
-            <MDBNavbarNav>
-              <MDBNavbarLink active aria-current='page' href='http://localhost:3000/'>
-                Home
+        </MDBNavbarBrand>
+        <MDBNavbarToggler
+          aria-expanded='false'
+          aria-label='Toggle navigation'
+          onClick={() => setOpenNavSecond(!openNavSecond)}
+        >
+          <MDBIcon icon='bars' fas />
+        </MDBNavbarToggler>
+        <MDBCollapse navbar open={openNavSecond}>
+          <MDBNavbarNav>
+            <MDBNavbarLink active aria-current='page' href='http://localhost:3000/'>Home</MDBNavbarLink>
+            <MDBNavbarLink href='http://localhost:3000/loggedin/tracks'>Tracks</MDBNavbarLink>
+            <MDBNavbarLink href='http://localhost:3000/loggedin/artists'>Artists</MDBNavbarLink>
+            <MDBInputGroup style={{marginLeft:'20%',maxWidth:'40%'}} tag="form">
+              <input 
+              className='form-control' 
+              placeholder="Search for an artist or song here" 
+              aria-label="Search" 
+              type='Search' 
+              style={{textAlign:'center'}} />
+              <MDBBtn href='http://localhost:3000/search'>Search</MDBBtn>
+            </MDBInputGroup>
+            <MDBNavbarLink style={{marginLeft:'25%', maxHeight:'45px'}} href='http://localhost:3000/loggedin/'>
+              <MDBBtn>Login</MDBBtn>
               </MDBNavbarLink>
-              <MDBNavbarLink href='http://localhost:3000/testing'>Testing</MDBNavbarLink>
-              <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-              <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
-                Disabled
-              </MDBNavbarLink>
-            </MDBNavbarNav>
-          </MDBCollapse>
-          <MDBInputGroup tag="form" className='d-flex w-auto mb-3'>
-          <input className='form-control' placeholder="Search for an artist or song here" aria-label="Search" type='Search' />
-          <MDBBtn outline>Search</MDBBtn>
-        </MDBInputGroup>
-        </MDBContainer>
-      </MDBNavbar>
-    );
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBContainer>
+    </MDBNavbar>
+  );
 }
 
 export default Navbar;

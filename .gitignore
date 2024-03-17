@@ -1,3 +1,8 @@
 .env
 .txt
 .cache
+Output.txt
+Output2.txt
+Output3.txt
+Output4.txt
+backend/flask_server/__pycache__/server.cpython-310.pyc

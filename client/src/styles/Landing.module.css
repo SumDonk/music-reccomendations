@@ -1,5 +1,5 @@
 .hero{
-    font-size: xx-large;
+    font-size: xxx-large;
     display: flex;
     padding: 2em;
 }
@@ -9,5 +9,5 @@
     color:aqua;
     text-align: 'center';
     margin-bottom: '5%';
-    display: fle;
+    display: flex;
 }
