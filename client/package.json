@@ -19,6 +19,7 @@
     "swr": "^2.2.5"
   },
   "devDependencies": {
+    "@types/node": "20.11.28",
     "eslint": "^8",
     "eslint-config-next": "14.1.3"
   }

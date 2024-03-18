@@ -65,7 +65,7 @@ def artist_top_tracks(artist):
 
 @app.route("/search/<query>")
 def artists(query):
-    artists = search_artists(query, "artist", 5)
+    artists = search_artists(query, "artist")
     return artists
 
 

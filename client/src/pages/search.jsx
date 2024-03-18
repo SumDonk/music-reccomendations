@@ -1,40 +1,37 @@
-// pages/index.js (or any other page)
-import { useState } from 'react';
+import React, { useState } from 'react';
+import SearchBar from '@/components/SearchBar'
 
-export default function Home() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [artistData, setArtistData] = useState(null);
+export default function Main() {
+  const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(`localhost:8080/search/${encodeURIComponent(searchTerm)}`);
-      const data = await response.json();
-      setArtistData(data); // Assuming the response structure matches your example data
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+  const handleSearch = (term) => {
+   // Fetch data from your Flask endpoint (similar to your existing fetch call)
+   fetch(`http://localhost:8080/search/${term}`)
+   .then((response) => response.json())
+   .then((data) => {
+     setSearchResults(data); // Update the state with the array of artists
+     console.log(data);
+   })
+   .catch((error) => {
+     console.error('Error fetching data:', error);
+   });
+    console.log(`Searching for: ${term}`);
   };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search for an artist or song here"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-
-      {artistData && (
-        <div>
-          <img src={artistData.artist_img} alt={artistData.artist} />
-          <p>Artist: {artistData.artist}</p>
-          <p>Genres: {artistData.genres.join(', ')}</p>
-          <a href={artistData.spotify_link} target="_blank" rel="noopener noreferrer">
-            Spotify Link
-          </a>
+      <SearchBar onSearch={handleSearch} />
+      {searchResults.map((result, index) => (
+        <div key={index}>
+          <h1>Artist: {result.artist}</h1>
+          <img style={{maxHeight:'200px'}} src={result.artist_img} alt={`Image of ${result.artist}`} />
+          <p>Spotify link: <a href={result.spotify_link}>{result.spotify_link}</a></p>
         </div>
-      )}
+      ))}
     </div>
   );
+}
+
+const imageStyle = {
+  mexHeight: "200px"
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Navbar'
 import styles from '../styles/Landing.module.css'
 import { MDBBtn, MDBInputGroup } from 'mdb-react-ui-kit';
 
