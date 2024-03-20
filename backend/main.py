@@ -30,7 +30,7 @@ def search_artists(query:str, type:str, num_artist = 10):
         artists.append(artist_info)
         pformat(print(artist_info))
         json_artists = jsonify(artists)
-    return artist_info
+    return json_artists
 
 def search_tracks(query:str, type:str, num_artist = 10):
     spotify = SPOTIFY_CLIENT.get_client()

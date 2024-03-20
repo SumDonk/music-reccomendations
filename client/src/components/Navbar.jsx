@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css'
+import SearchBar from '@/components/SearchBar';
 import {
   MDBContainer,
   MDBNavbar,
@@ -19,11 +20,22 @@ import {
 function Navbar() {
   const [user, setUser] = useState(null);
   const [openNavSecond, setOpenNavSecond] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    // Fetch user data here and update the state
-    // setUser({ name: 'John Doe', profilePicture: '/path/to/profile/picture' });
-  }, []);
+  const handleSearch = (term) => {
+    // Fetch data from your Flask endpoint (similar to your existing fetch call)
+    fetch(`http://localhost:8080/search/${term}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResults(data); // Update the state with the array of artists
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    console.log(`Searching for: ${term}`);
+  };
 
   return (
     <MDBNavbar expand='lg' dark bgColor='dark' style={{maxHeight:'70px'}}>
@@ -47,15 +59,7 @@ function Navbar() {
             <MDBNavbarLink active aria-current='page' href='http://localhost:3000/'>Home</MDBNavbarLink>
             <MDBNavbarLink href='http://localhost:3000/loggedin/tracks'>Tracks</MDBNavbarLink>
             <MDBNavbarLink href='http://localhost:3000/loggedin/artists'>Artists</MDBNavbarLink>
-            <MDBInputGroup style={{marginLeft:'20%',maxWidth:'40%'}} tag="form">
-              <input 
-              className='form-control' 
-              placeholder="Search for an artist or song here" 
-              aria-label="Search" 
-              type='Search' 
-              style={{textAlign:'center'}} />
-              <MDBBtn href='http://localhost:3000/search'>Search</MDBBtn>
-            </MDBInputGroup>
+            <SearchBar onSearch={handleSearch}/>
             <MDBNavbarLink style={{marginLeft:'25%', maxHeight:'45px'}} href='http://localhost:3000/loggedin/'>
               <MDBBtn>Login</MDBBtn>
               </MDBNavbarLink>

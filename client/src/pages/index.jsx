@@ -5,14 +5,6 @@ import { MDBBtn, MDBInputGroup } from 'mdb-react-ui-kit';
 
 
 function index() {
-
-  //const [artist ,setArtist] = useState([])
-
-
-  /*fetch("http://localhost:8080/artists/")
-  .then((response) => response.json())
-  .then((data) => {});
-*/
   return (
     <div>
       <Navbar></Navbar>
