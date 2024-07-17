@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '@/components/Navbar';
 import { MDBBtn, MDBInputGroup } from 'mdb-react-ui-kit';
 
 export default function MyInput() {
@@ -6,7 +7,7 @@ export default function MyInput() {
 
   function handleChanges() {
     // Fetch data from your Flask endpoint (similar to your existing fetch call)
-    fetch('http://localhost:8080/search/Nothing%20More')
+    fetch('http://localhost:8080/search/artist/Nothing%20More')
       .then((response) => response.json())
       .then((data) => {
         setArtists(data); // Update the state with the array of artists
@@ -19,6 +20,7 @@ export default function MyInput() {
 
   return (
     <>
+    <Navbar></Navbar>
       <MDBBtn onClick={handleChanges}>Fetch Artist Data</MDBBtn>
       {artists.map((artist, index) => (
         <div key={index}>

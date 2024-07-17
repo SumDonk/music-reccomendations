@@ -30,7 +30,7 @@ export default function Basic() {
                                     Embark on a journey to discover musicians who resonate with your style. Click here to uncover new recommended artists tailored to your musical taste.
                                     </MDBCardText>
                                     <MDBCardText>
-                                        <MDBBtn href="localhost:3000/loggedin/artists">EXPLORE</MDBBtn>
+                                        <MDBBtn href="/loggedin/artists">EXPLORE</MDBBtn>
                                     </MDBCardText>
                                 </MDBCardBody>
                             </MDBCol>
@@ -53,7 +53,7 @@ export default function Basic() {
                                     Dive into a curated selection of tunes waiting just for you. Click here to explore new recommended tracks that hit all the right notes.
                                     </MDBCardText>
                                     <MDBCardText>
-                                         <MDBBtn className="btn btn-info" style={{color: 'black'}} href="localhost:3000/loggedin/tracks">EXPLORE</MDBBtn>
+                                         <MDBBtn className="btn btn-info" style={{color: 'black'}} href="/loggedin/tracks">EXPLORE</MDBBtn>
                                     </MDBCardText>
                                 </MDBCardBody>
                             </MDBCol>

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
 from methods.artist_methods import *
 from methods.track_methods import *
-from search import search_artists
+from search import *
 
 
 
@@ -20,6 +20,9 @@ SPOTIFY_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 FLASK_KEY = os.getenv('FLASK_SECRET_KEY')
 app.secret_key = FLASK_KEY  
 
+@app.route('/testing')
+def testing():
+    return jsonify()
 
 @app.route('/login')
 def index():
@@ -50,7 +53,7 @@ def loggedin():
 @app.route('/')
 def landing():
     return jsonify({
-        'message': "Hello world!"
+        'message': "erm i believe you meant to test something else"
     })
 
 @app.route("/artists/")
@@ -63,10 +66,16 @@ def artist_top_tracks(artist):
     tracks = top_tracks_for_artist("https://open.spotify.com/artist/760kxYHN5QTrD1DehiimjB?si=ZyaF_19dQxK8-HN3jrX3uA",10)
     return tracks
 
-@app.route("/search/<query>")
+@app.route("/search/artist/<query>")
 def artists(query):
-    artists = search_artists(query, "artist")
+    artists = search_artists(query=query)
     return artists
+
+@app.route("/search/track/<query>")
+def tracks(query):
+    tracks = search_tracks(query=query)
+    return tracks
+    
 
 
 @app.route("/tracks/")
@@ -79,3 +88,12 @@ def track_info():
 def audio_info(track):
     audio_info = get_audio_info(track)
     return audio_info
+
+@app.route("/tracks/recommendations")
+def recommendations():
+    try:
+        recommendations = get_recommended_tracks(["5Xak5fmy089t0FYmh3VJiY"],["3T55D3LMiygE9eSKFpiAye"],[],5)
+    except Exception as e:
+        print(e)
+        return "Something went wrong, but we move"
+    return recommendations

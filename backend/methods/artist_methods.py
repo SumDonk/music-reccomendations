@@ -36,6 +36,6 @@ def get_related_artists(uri,num_artists):
         # json_artists = jsonify(related_artists)
     return pformat(related_artists)
 
-def get_artist_albums(uri,num_albums):
-    
-    return None
+def get_artist_albums(uri,num_albums) -> NotImplementedError:
+    return NotImplementedError 
+

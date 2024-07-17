@@ -1,0 +1,24 @@
+.rotate{
+  animation: rotation infinite 60s linear;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .parent {
+    position: relative;
+    width: 300px;
+    height: 200px;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  

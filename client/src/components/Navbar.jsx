@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css'
 import SearchBar from '@/components/SearchBar';
+import Image from 'next/image';
 import {
   MDBContainer,
   MDBNavbar,
@@ -24,7 +25,7 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (term) => {
-    // Fetch data from your Flask endpoint (similar to your existing fetch call)
+    // Fetch data from Flask endpoint
     fetch(`http://localhost:8080/search/${term}`)
       .then((response) => response.json())
       .then((data) => {
@@ -40,11 +41,8 @@ function Navbar() {
   return (
     <MDBNavbar expand='lg' dark bgColor='dark' style={{maxHeight:'70px'}}>
       <MDBContainer fluid>
-        <MDBNavbarBrand href='#'><img
-          src="https://th.bing.com/th/id/OIP.egF5T1Dcu38u6rwlgVojqAHaHa?rs=1&pid=ImgDetMain"
-          alt="About Us"
-          height='50'
-        />
+        <MDBNavbarBrand href='/'>
+          <Image src={"/images/favicon.png"} width={50} height={50} alt='logo'></Image>
 
         </MDBNavbarBrand>
         <MDBNavbarToggler
@@ -57,8 +55,8 @@ function Navbar() {
         <MDBCollapse navbar open={openNavSecond}>
           <MDBNavbarNav>
             <MDBNavbarLink active aria-current='page' href='http://localhost:3000/'>Home</MDBNavbarLink>
-            <MDBNavbarLink href='http://localhost:3000/loggedin/tracks'>Tracks</MDBNavbarLink>
-            <MDBNavbarLink href='http://localhost:3000/loggedin/artists'>Artists</MDBNavbarLink>
+            <MDBNavbarLink href='http://localhost:3000/tracks'>Tracks</MDBNavbarLink>
+            <MDBNavbarLink href='http://localhost:3000/artists'>Artists</MDBNavbarLink>
             <SearchBar onSearch={handleSearch}/>
             <MDBNavbarLink style={{marginLeft:'25%', maxHeight:'45px'}} href='http://localhost:3000/loggedin/'>
               <MDBBtn>Login</MDBBtn>
