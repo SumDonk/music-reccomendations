@@ -1,9 +1,10 @@
 import React from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/router';
 import styles from '../../styles/images.module.css';
+import AudioPlayer from 'react-h5-audio-player';
 
 
 import {
@@ -24,6 +25,7 @@ export default function App() {
       try {
         const response = await fetch(`http://localhost:8080/tracks/recommendations`);
         const data = await response.json();
+        console.log(data);
         setTracks(data);
       } catch (error) {
         console.error('Error fetching data track search:', error);
@@ -32,74 +34,88 @@ export default function App() {
     fetchData();
   }, []);
 
-const AudioPlayer = ({url}) => {
-  return (
-    <div>
-      <audio controls>
-        <source src={url} type="audio/mpeg" />
-      </audio>
-    </div>
-  );
-};
-{
+
+// const AudioPlayer = ({url}) => {
+//   if (!url) {
+//     return <div>No audio preview avaliable</div>;
+//   }
+//   return (
+//     <div>
+//       <audio controls>
+//         <source src={url} type="audio/mpeg" />
+//       </audio>
+//     </div>
+//   );
+// };
+
+const Player = ({url}) => (
+  <AudioPlayer
+    src={url}
+    onPlay={e => console.log("onPlay")}
+    // other props here
+  />
+);
+
 
 
   const handleNext = () => {
     if (currentIndex < tracks.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      console.log(currentIndex);
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+      console.log(currentIndex);
     }
   };
   return (
     <div>
-      {/* <button onClick={handlePrevious}>Previous</button>
-      <button onClick={handleNext}>Next</button>
-      <h1> Track: {JSON.stringify(tracks[currentIndex]?.track, null, 2)}</h1>
-      <h1> Artist: {JSON.stringify(tracks[currentIndex]?.artist, null, 2)}</h1>
-      <h1> Album: {JSON.stringify(tracks[currentIndex]?.album, null, 2)}</h1>
-      <h1> Album Art:</h1> {JSON.stringify(tracks[currentIndex]?.artist, null, 2)} <img style={{ maxHeight: '200px', maxWidth: '200px' }} src={tracks[currentIndex]?.cover_art} alt={`Image of ${tracks[currentIndex]?.artist}`} />
-      <h1>Audio Preview: </h1><AudioPlayer url={tracks[currentIndex]?.audio} /> */}
     { <div>
       <Navbar></Navbar>
-    <MDBCard style={{ backgroundColor: 'rgb(0, 200, 200)', height: '700px', margin:'5%', position: 'relative'}}>
+    <MDBCard style={{ backgroundColor: 'rgb(63, 63, 66)', height: '700px', margin:'5%', position: 'relative'}}>
       <MDBCardBody>
         <MDBCardText className='text-center'>
           Music Rex :D
         </MDBCardText>
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', position: 'absolute', padding:"8%"}}>
         <div style={{position: 'relative'}}>
           <Image src={"/images/vinyl.png"}width={300} height={250} alt='logo'></Image>
-          {<Image src={tracks[currentIndex]?.cover_art} className={styles.rotate} width={200} height={200} alt='logo' style={{position: 'absolute', top: 28, left: 20, borderRadius: '50%'}}></Image>}
+          {<img src={tracks[currentIndex]?.cover_art} className={styles.rotate} width={200} height={200} alt='logo' style={{position: 'absolute', top: 28, left: 20, borderRadius: '50%'}}></img>}
         </div>
-        <MDBCard style={{ maxWidth: '50%', backgroundColor: 'rgb(0, 200, 0)'}}>
-          <MDBCardBody>
-            <MDBCardTitle style={{fontSize: '30px'}}>Photograph //will be changing this to anonymous function to take to song page</MDBCardTitle>
-            <MDBCardText onClick={() => getTracks()} style={{cursor: 'pointer'}}>
-              Nickelback (with clickable link) //will be changing this to anonymous function to take to artist page
+        <MDBCard style={{ maxWidth: '70%', backgroundColor: 'rgb(36, 36, 38)', display:'flex'}}>
+          <MDBCardBody style={{minWidth:'50%'}}>
+            <MDBCardTitle style={{fontSize: '30px', color: 'white'}}>
+            <a>{tracks[currentIndex]?.track}</a> 
+              </MDBCardTitle>
+
+            <MDBCardText onClick={() => goArtistPage(artist)} style={{cursor: 'pointer'}}>
+              <a>{tracks[currentIndex]?.artist}</a> 
 
             </MDBCardText>
-            <MDBCardText>
-              <small className='text-muted'> on All the Right Reasons (with clickable link)</small>
+
+            <MDBCardText onClick={() => goAlbumPage(album)} style={{cursor: 'pointer'}}>
+              <small className='text-muted' onClick={() => goAlbumPage(album)}> 
+               on <a>{tracks[currentIndex]?.album}</a>
+              </small>
             </MDBCardText>
-            <AudioPlayer url={"https://p.scdn.co/mp3-preview/fe00facde5b81d8f19789ac048fba91ae7f9d610?cid=1415bc9f0dec4978bb6c7042c401b37a"} />
+
+            <Player url={tracks[currentIndex]?.audio} />
           </MDBCardBody>
         </MDBCard>
 
         </div>
 
-        <div style={{ position: 'absolute', bottom: 50, left: 50 }}>
-        <Image src={"/images/leftarrow.png"} width={50} height={50} alt='logo' onClick={handlePrevious}></Image>
+        <div style={{ position: 'absolute', bottom: 50, left: 50, cursor: 'pointer'}} onClick={handlePrevious}>
+        <Image src={"/images/leftarrow.png"} width={50} height={50} alt='logo'style={{cursor: 'pointer'}}></Image>
         PREVIOUS
         </div>
 
-        <div style={{ position: 'absolute', bottom: 50, right: 50 }}>
+        <div style={{ position: 'absolute', bottom: 50, right: 50, cursor: 'pointer'}} onClick={handleNext}>
         NEXT
-        <Image src={"/images/rightarrow.png"} width={50} height={50} alt='logo' onClick={handleNext(tracks)}></Image>
+        <Image src={"/images/rightarrow.png"} width={50} height={50} alt='logo' style={{cursor: 'pointer'}}></Image>
         </div>
 
       </MDBCardBody>
@@ -108,5 +124,5 @@ const AudioPlayer = ({url}) => {
     </div> }
     </div>
   );
-}
+
 }

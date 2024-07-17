@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css'
 import SearchBar from '@/components/SearchBar';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import {
   MDBContainer,
   MDBNavbar,

@@ -3,4 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-export default nextConfig;
+// next.config.mjs
+export default {
+  images: {
+    domains: ['i.scdn.co'],
+  },
+};
