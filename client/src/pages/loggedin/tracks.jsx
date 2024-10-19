@@ -98,11 +98,17 @@ const Player = ({url}) => (
 
             <MDBCardText onClick={() => goAlbumPage(album)} style={{cursor: 'pointer'}}>
               <small className='text-muted' onClick={() => goAlbumPage(album)}> 
-               on <a>{tracks[currentIndex]?.album}</a>
+               on <a href=''>{tracks[currentIndex]?.album}</a>
               </small>
             </MDBCardText>
 
-            <Player url={tracks[currentIndex]?.audio} />
+            {!tracks[currentIndex]?.audio ? (
+              <div style={{color: 'white'}}>Audio not avaliable for this track
+              <a href={tracks[currentIndex]?.url}>Open Spotify</a>
+              </div>
+            ) : (
+              <Player url={tracks[currentIndex]?.audio} />
+            )}
           </MDBCardBody>
         </MDBCard>
 

@@ -7,6 +7,8 @@ from spotipy.oauth2 import SpotifyOAuth
 from methods.artist_methods import *
 from methods.track_methods import *
 from search import *
+from methods.login_oauth import SpotifyClient_Oauth
+import urllib.parse
 
 
 
@@ -91,9 +93,32 @@ def audio_info(track):
 
 @app.route("/tracks/recommendations")
 def recommendations():
+    spotify = spotipy.Spotify(auth=session.get('access_token'))
+    results = spotify.current_user_saved_tracks(limit=5)
+    final = get_saved_tracks(results)
+    seed_tracks = []
+    seed_artists = []
+    for track in final:
+        seed_tracks.append(track['uri'])
+        seed_artists.append(track['artist_id'])
+    print(seed_tracks, seed_artists)
+    
     try:
-        recommendations = get_recommended_tracks(["5Xak5fmy089t0FYmh3VJiY"],["3T55D3LMiygE9eSKFpiAye"],[],5)
+        recommendations = get_recommended_tracks(seed_tracks = (seed_tracks), seed_artists= [],seed_genres=[], limit=5)
     except Exception as e:
         print(e)
         return "Something went wrong, but we move"
     return recommendations
+
+@app.route("/currentuser")
+def current_user():
+    spotify = spotipy.Spotify(auth=session.get('access_token'))
+    results = spotify.current_user()
+    return jsonify(results)
+
+@app.route("/currentuser/savedtracks")
+def current_user_saved_tracks():
+    spotify = spotipy.Spotify(auth=session.get('access_token'))
+    results = spotify.current_user_saved_tracks(limit=10)
+    final = get_saved_tracks(results)
+    return jsonify(results)

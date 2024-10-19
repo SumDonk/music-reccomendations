@@ -12,3 +12,4 @@ backend/methods/__pycache__/artist_methods.cpython-310.pyc
 backend/methods/__pycache__/track_methods.cpython-310.pyc
 backend/__pycache__/search.cpython-310.pyc
 Output.txt
+backend/methods/__pycache__/login_oauth.cpython-310.pyc
